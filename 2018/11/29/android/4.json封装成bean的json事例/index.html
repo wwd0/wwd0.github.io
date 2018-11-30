@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="安装 D:\gnt\src\weicha\weicha-android\app_builder\build\outputs\apk\weicha_2.6.2_[online]_debug.apk， logcat输入 RetrofitLog 即可抓取对应请求 1.请求： 巡防记录 https://biz.weicha110.com/biz/app/patrol/personalRankList 返回">
+<meta property="og:type" content="article">
+<meta property="og:title" content="四、json封装成bean的json事例">
+<meta property="og:url" content="http://yoursite.com/2018/11/29/android/4.json封装成bean的json事例/index.html">
+<meta property="og:site_name" content="凡星的个人博客">
+<meta property="og:description" content="安装 D:\gnt\src\weicha\weicha-android\app_builder\build\outputs\apk\weicha_2.6.2_[online]_debug.apk， logcat输入 RetrofitLog 即可抓取对应请求 1.请求： 巡防记录 https://biz.weicha110.com/biz/app/patrol/personalRankList 返回">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-29T10:25:38.396Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="四、json封装成bean的json事例">
+<meta name="twitter:description" content="安装 D:\gnt\src\weicha\weicha-android\app_builder\build\outputs\apk\weicha_2.6.2_[online]_debug.apk， logcat输入 RetrofitLog 即可抓取对应请求 1.请求： 巡防记录 https://biz.weicha110.com/biz/app/patrol/personalRankList 返回">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/29/android/4.json封装成bean的json事例/"/>
+
+
+
+
+
+  <title>四、json封装成bean的json事例 | 凡星的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">凡星的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/android/4.json封装成bean的json事例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wwd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="凡星的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">四、json封装成bean的json事例</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-29T12:07:13+08:00">
+                2018-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><br><br>安装 D:\gnt\src\weicha\weicha-android\app_builder\build\outputs\apk\weicha_2.6.2_[online]_debug.apk， logcat输入 RetrofitLog 即可抓取对应请求</p>
+<h3 id="1-请求：-巡防记录-https-biz-weicha110-com-biz-app-patrol-personalRankList-返回json如下"><a href="#1-请求：-巡防记录-https-biz-weicha110-com-biz-app-patrol-personalRankList-返回json如下" class="headerlink" title="1.请求： 巡防记录 https://biz.weicha110.com/biz/app/patrol/personalRankList 返回json如下"></a>1.请求： 巡防记录 <a href="https://biz.weicha110.com/biz/app/patrol/personalRankList" target="_blank" rel="noopener">https://biz.weicha110.com/biz/app/patrol/personalRankList</a> 返回json如下</h3><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;messageCode&quot;: &quot;1&quot;,</span><br><span class="line">	&quot;message&quot;: &quot;操作成功&quot;,</span><br><span class="line">	&quot;data&quot;: &#123;</span><br><span class="line">		&quot;rows&quot;: [&#123;</span><br><span class="line">			&quot;photoUrl&quot;: null,</span><br><span class="line">			&quot;patrolPic&quot;: &quot;http://weicha-prd.oss-cn-hangzhou.aliyuncs.com/patrolPic/2018-06-20/ab8fce19-a14c-4a49-a5c0-e6765b9626fc1529488006609.jpg&quot;,</span><br><span class="line">			&quot;singId&quot;: &quot;08f87980-c052-4daa-bdc0-4e3abf309dcb&quot;,</span><br><span class="line">			&quot;typeDesc&quot;: &quot;交警执勤&quot;,</span><br><span class="line">			&quot;whenLong&quot;: &quot;0:0:8&quot;,</span><br><span class="line">			&quot;averageSpeed&quot;: 0,</span><br><span class="line">			&quot;beginTime&quot;: 1529487998000,</span><br><span class="line">			&quot;endTime&quot;: 1529488006000,</span><br><span class="line">			&quot;userName&quot;: &quot;伟东-v1.5测试员&quot;,</span><br><span class="line">			&quot;type&quot;: &quot;3&quot;,</span><br><span class="line">			&quot;userAct&quot;: &quot;89208087&quot;,</span><br><span class="line">			&quot;mileage&quot;: 0</span><br><span class="line">		&#125;, &#123;</span><br><span class="line">			&quot;photoUrl&quot;: null,</span><br><span class="line">			&quot;patrolPic&quot;: &quot;http://weicha-prd.oss-cn-hangzhou.aliyuncs.com/patrolPic/2018-04-02/82c4350e-a1f9-47c7-90e3-91af0b1606751522636257004.jpg&quot;,</span><br><span class="line">			&quot;singId&quot;: &quot;5abb0476-9bf6-45e8-93e9-1689403cd805&quot;,</span><br><span class="line">			&quot;typeDesc&quot;: &quot;巡逻&quot;,</span><br><span class="line">			&quot;whenLong&quot;: &quot;0:16:33&quot;,</span><br><span class="line">			&quot;averageSpeed&quot;: 0,</span><br><span class="line">			&quot;beginTime&quot;: 1522635269000,</span><br><span class="line">			&quot;endTime&quot;: 1522636262000,</span><br><span class="line">			&quot;userName&quot;: &quot;伟东-v1.5测试员&quot;,</span><br><span class="line">			&quot;type&quot;: &quot;0&quot;,</span><br><span class="line">			&quot;userAct&quot;: &quot;89208087&quot;,</span><br><span class="line">			&quot;mileage&quot;: 0</span><br><span class="line">		&#125;],</span><br><span class="line">		&quot;total&quot;: 16</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;success&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该json被封装成了： Result&lt;ListResult<patroldata>&gt; 具体参考： PatrolPersonalService 类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br></pre></td><td class="code"><pre><span class="line">public  class Result&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    private boolean encryptModel;</span><br><span class="line"></span><br><span class="line">    private String message;</span><br><span class="line"></span><br><span class="line">    private T data;</span><br><span class="line"></span><br><span class="line">    private boolean success;</span><br><span class="line"></span><br><span class="line">    public boolean getEncryptModel()&#123;</span><br><span class="line">        return this.encryptModel;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setEncryptModel(boolean encryptModel)&#123;</span><br><span class="line">        this.encryptModel = encryptModel;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getMessage()&#123;</span><br><span class="line">        return this.message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setMessage(String message)&#123;</span><br><span class="line">        this.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public T getData()&#123;</span><br><span class="line">        return this.data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setData(T data)&#123;</span><br><span class="line">        this.data = data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean getSuccess()&#123;</span><br><span class="line">        return this.success;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setSuccess(boolean success)&#123;</span><br><span class="line">        this.success = success;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class ListResult&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    public List&lt;T&gt; rows;</span><br><span class="line"></span><br><span class="line">    private int total;</span><br><span class="line"></span><br><span class="line">    public int getTotal() &#123;</span><br><span class="line">        return total;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setTotal(int total) &#123;</span><br><span class="line">        this.total = total;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;T&gt; getRows() &#123;</span><br><span class="line">        return this.rows;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setRows(List&lt;T&gt; rows) &#123;</span><br><span class="line">        this.rows = rows;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class PatrolData implements Parcelable &#123;</span><br><span class="line">    private String singId;</span><br><span class="line">    private String photoUrl;// 用户头像</span><br><span class="line">    private String userAct;//用户账号</span><br><span class="line">    private String userName;</span><br><span class="line">    private String award;//奖励,比如：今日之星</span><br><span class="line"></span><br><span class="line">    public String getSingId() &#123;</span><br><span class="line">        return singId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setSingId(String singId) &#123;</span><br><span class="line">        this.singId = singId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public long getBeginTime() &#123;</span><br><span class="line">        return beginTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setBeginTime(long beginTime) &#123;</span><br><span class="line">        this.beginTime = beginTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private long beginTime; //开始时间</span><br><span class="line"></span><br><span class="line">    public void setEndTime(long endTime) &#123;</span><br><span class="line">        this.endTime = endTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public long getEndTime() &#123;</span><br><span class="line">        return endTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private long endTime; // 结束时间</span><br><span class="line">    private String finishedWorkTime;//完成巡逻时间,比如： 一分钟前完成,2小时前完成</span><br><span class="line">    //工作类型数值,根据后台返回值确定：0代表巡逻，1代表备勤，2-处警, 3-交警执勤, 4代表值班(也可以参考DataUtil.WorkType)</span><br><span class="line">    private String type;</span><br><span class="line">    private String typeDesc;//工作类型名称,比如：巡防,值班,备勤,交警巡逻等</span><br><span class="line">    private String workRangeTime;//工作时间范围,比如：3.19 12:02 - 3.19 18:00</span><br><span class="line">    private String patrolPic;//巡逻的图片</span><br><span class="line">    private String mileage;//巡逻距离,比如：7公里</span><br><span class="line">    private String averageSpeed;//速度</span><br><span class="line">    private String whenLong;//工作时长,比如： 45:51</span><br><span class="line"></span><br><span class="line">    /*private QueryState queryState = QueryState.ToDO;</span><br><span class="line">    private List&lt;LatLng&gt; pointList;*/</span><br><span class="line"></span><br><span class="line">    public PatrolData() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public PatrolData(String userHeadPath, String userName, String award, String finishedWorkTime, String type, String workRangeTime,</span><br><span class="line">                      String patrolPic, String mileage, String speed, String whenLong)&#123;</span><br><span class="line">        this.photoUrl = userHeadPath;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">        this.award = award;</span><br><span class="line">        this.finishedWorkTime = finishedWorkTime;</span><br><span class="line">        this.type = type;</span><br><span class="line">        this.workRangeTime = workRangeTime;</span><br><span class="line">        this.patrolPic = patrolPic;</span><br><span class="line">        this.mileage = mileage;</span><br><span class="line">        this.averageSpeed = speed;</span><br><span class="line">        this.whenLong = whenLong;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUserHeadPath() &#123;</span><br><span class="line">        return photoUrl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserHeadPath(String userHeadPath) &#123;</span><br><span class="line">        this.photoUrl = userHeadPath;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUserName() &#123;</span><br><span class="line">        return userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserName(String userName) &#123;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUserAct() &#123;</span><br><span class="line">        return userAct;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserAct(String userAct) &#123;</span><br><span class="line">        this.userAct = userAct;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getAward() &#123;</span><br><span class="line">        return award;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAward(String award) &#123;</span><br><span class="line">        this.award = award;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getFinishedWorkTime() &#123;</span><br><span class="line">        return finishedWorkTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setFinishedWorkTime(String finishedWorkTime) &#123;</span><br><span class="line">        this.finishedWorkTime = finishedWorkTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getType() &#123;</span><br><span class="line">        return type;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setType(String type) &#123;</span><br><span class="line">        this.type = type;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getTypeDesc() &#123;</span><br><span class="line">        return typeDesc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setTypeDesc(String typeDesc) &#123;</span><br><span class="line">        this.typeDesc = typeDesc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getWorkRangeTime() &#123;</span><br><span class="line">        return workRangeTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setWorkRangeTime(String workRangeTime) &#123;</span><br><span class="line">        this.workRangeTime = workRangeTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getPatrolPic() &#123;</span><br><span class="line">        return patrolPic;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPatrolPic(String patrolPic) &#123;</span><br><span class="line">        this.patrolPic = patrolPic;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getMileage() &#123;</span><br><span class="line">        return mileage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setMileage(String mileage) &#123;</span><br><span class="line">        this.mileage = mileage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getAverageSpeed() &#123;</span><br><span class="line">        return averageSpeed;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAverageSpeed(String speed) &#123;</span><br><span class="line">        this.averageSpeed = speed;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getWhenLong() &#123;</span><br><span class="line">        return whenLong;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setWhenLong(String whenLong) &#123;</span><br><span class="line">        this.whenLong = whenLong;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int describeContents() &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void writeToParcel(Parcel dest, int flags) &#123;</span><br><span class="line">        dest.writeString(this.singId);</span><br><span class="line">        dest.writeString(this.photoUrl);</span><br><span class="line">        dest.writeString(this.userAct);</span><br><span class="line">        dest.writeString(this.userName);</span><br><span class="line">        dest.writeString(this.award);</span><br><span class="line">        dest.writeLong(this.beginTime);</span><br><span class="line">        dest.writeLong(this.endTime);</span><br><span class="line">        dest.writeString(this.finishedWorkTime);</span><br><span class="line">        dest.writeString(this.type);</span><br><span class="line">        dest.writeString(this.typeDesc);</span><br><span class="line">        dest.writeString(this.workRangeTime);</span><br><span class="line">        dest.writeString(this.patrolPic);</span><br><span class="line">        dest.writeString(this.mileage);</span><br><span class="line">        dest.writeString(this.averageSpeed);</span><br><span class="line">        dest.writeString(this.whenLong);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected PatrolData(Parcel in) &#123;</span><br><span class="line">        this.singId = in.readString();</span><br><span class="line">        this.photoUrl = in.readString();</span><br><span class="line">        this.userAct = in.readString();</span><br><span class="line">        this.userName = in.readString();</span><br><span class="line">        this.award = in.readString();</span><br><span class="line">        this.beginTime = in.readLong();</span><br><span class="line">        this.endTime = in.readLong();</span><br><span class="line">        this.finishedWorkTime = in.readString();</span><br><span class="line">        this.type = in.readString();</span><br><span class="line">        this.typeDesc = in.readString();</span><br><span class="line">        this.workRangeTime = in.readString();</span><br><span class="line">        this.patrolPic = in.readString();</span><br><span class="line">        this.mileage = in.readString();</span><br><span class="line">        this.averageSpeed = in.readString();</span><br><span class="line">        this.whenLong = in.readString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static final Parcelable.Creator&lt;PatrolData&gt; CREATOR = new Parcelable.Creator&lt;PatrolData&gt;() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public PatrolData createFromParcel(Parcel source) &#123;</span><br><span class="line">            return new PatrolData(source);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public PatrolData[] newArray(int size) &#123;</span><br><span class="line">            return new PatrolData[size];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></patroldata></p>
+<h3 id="2-请求：-https-biz-weicha110-com-biz-app-patrol-pointRank-返回json如下"><a href="#2-请求：-https-biz-weicha110-com-biz-app-patrol-pointRank-返回json如下" class="headerlink" title="2.请求： https://biz.weicha110.com/biz/app/patrol/pointRank 返回json如下"></a>2.请求： <a href="https://biz.weicha110.com/biz/app/patrol/pointRank" target="_blank" rel="noopener">https://biz.weicha110.com/biz/app/patrol/pointRank</a> 返回json如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;messageCode&quot;: &quot;1&quot;,</span><br><span class="line">	&quot;encryptModel&quot;: false,</span><br><span class="line">	&quot;message&quot;: &quot;&quot;,</span><br><span class="line">	&quot;data&quot;: &#123;</span><br><span class="line">		&quot;all&quot;: [],</span><br><span class="line">		&quot;one&quot;: &#123;</span><br><span class="line">			&quot;photoUrl&quot;: &quot;&quot;,</span><br><span class="line">			&quot;point&quot;: 0,</span><br><span class="line">			&quot;rank&quot;: 0,</span><br><span class="line">			&quot;userName&quot;: &quot;伟东-v1.5测试员&quot;,</span><br><span class="line">			&quot;useract&quot;: &quot;89208087&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;success&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该json请求被封装成 Result&lt;PointRank_bean&gt;， PointRank_bean代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">public class PointRank_bean &#123;</span><br><span class="line">    private OnePointRank_bean one;                     //个人</span><br><span class="line">    private List&lt;OnePointRank_bean&gt; all;               //列表</span><br><span class="line"></span><br><span class="line">    public PointRank_bean()&#123;</span><br><span class="line">        super();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public OnePointRank_bean getOne() &#123;</span><br><span class="line">        return one;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setOne(OnePointRank_bean one) &#123;</span><br><span class="line">        this.one = one;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;OnePointRank_bean&gt; getAll() &#123;</span><br><span class="line">        return all;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAll(List&lt;OnePointRank_bean&gt; all) &#123;</span><br><span class="line">        this.all = all;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">其中引用了 OnePointRank_bean 类， 代码如下：</span><br><span class="line">public class OnePointRank_bean &#123;</span><br><span class="line">    private String useract;                 //账号</span><br><span class="line">    private String userName;                //姓名</span><br><span class="line">    private int point;                      //积分</span><br><span class="line">    private int rank;                       //排名</span><br><span class="line">    private String photoUrl;</span><br><span class="line">    public  OnePointRank_bean()&#123;</span><br><span class="line">        super();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public String getUseract() &#123;</span><br><span class="line">        return useract;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUseract(String useract) &#123;</span><br><span class="line">        this.useract = useract;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUserName() &#123;</span><br><span class="line">        return userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserName(String userName) &#123;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getPoint() &#123;</span><br><span class="line">        return point;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPoint(int point) &#123;</span><br><span class="line">        this.point = point;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getRank() &#123;</span><br><span class="line">        return rank;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setRank(int rank) &#123;</span><br><span class="line">        this.rank = rank;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getPhotoUrl() &#123;</span><br><span class="line">        return photoUrl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPhotoUrl(String photoUrl) &#123;</span><br><span class="line">        this.photoUrl = photoUrl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-请求：-警力分布-https-biz-weicha110-com-biz-app-trajectory-qrygps-返回json如下"><a href="#3-请求：-警力分布-https-biz-weicha110-com-biz-app-trajectory-qrygps-返回json如下" class="headerlink" title="3.请求： 警力分布 https://biz.weicha110.com/biz/app/trajectory/qrygps 返回json如下"></a>3.请求： 警力分布 <a href="https://biz.weicha110.com/biz/app/trajectory/qrygps" target="_blank" rel="noopener">https://biz.weicha110.com/biz/app/trajectory/qrygps</a> 返回json如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;messageCode&quot;: &quot;1&quot;,</span><br><span class="line">	&quot;encryptModel&quot;: false,</span><br><span class="line">	&quot;message&quot;: &quot;&quot;,</span><br><span class="line">	&quot;data&quot;: &#123;</span><br><span class="line">		&quot;rows&quot;: [&#123;</span><br><span class="line">			&quot;areaCode&quot;: &quot;4507&quot;,</span><br><span class="line">			&quot;createdDatetime&quot;: 1543486403841,</span><br><span class="line">			&quot;lat&quot;: 22.265544,</span><br><span class="line">			&quot;lng&quot;: 109.55523,</span><br><span class="line">			&quot;signId&quot;: &quot;&quot;,</span><br><span class="line">			&quot;unitCode&quot;: &quot;450722810000&quot;,</span><br><span class="line">			&quot;unitName&quot;: &quot;广西浦北县公安局江城派出所&quot;,</span><br><span class="line">			&quot;userName&quot;: &quot;苏子权&quot;,</span><br><span class="line">			&quot;userPhone&quot;: &quot;13977015618&quot;,</span><br><span class="line">			&quot;useract&quot;: &quot;631674&quot;,</span><br><span class="line">			&quot;workType&quot;: &quot;2&quot;</span><br><span class="line">		&#125;, &#123;</span><br><span class="line">			&quot;areaCode&quot;: &quot;4507&quot;,</span><br><span class="line">			&quot;createdDatetime&quot;: 1543486409584,</span><br><span class="line">			&quot;lat&quot;: 21.956608,</span><br><span class="line">			&quot;lng&quot;: 108.616731,</span><br><span class="line">			&quot;signId&quot;: &quot;&quot;,</span><br><span class="line">			&quot;unitCode&quot;: &quot;450702610000&quot;,</span><br><span class="line">			&quot;unitName&quot;: &quot;广西钦州市公安局南珠派出所&quot;,</span><br><span class="line">			&quot;userName&quot;: &quot;吕玉明&quot;,</span><br><span class="line">			&quot;userPhone&quot;: &quot;15907772653&quot;,</span><br><span class="line">			&quot;useract&quot;: &quot;630780&quot;,</span><br><span class="line">			&quot;workType&quot;: &quot;2&quot;</span><br><span class="line">		&#125;, &#123;</span><br><span class="line">			&quot;areaCode&quot;: &quot;4507&quot;,</span><br><span class="line">			&quot;createdDatetime&quot;: 1543485838853,</span><br><span class="line">			&quot;lat&quot;: 21.731841,</span><br><span class="line">			&quot;lng&quot;: 108.602291,</span><br><span class="line">			&quot;signId&quot;: &quot;&quot;,</span><br><span class="line">			&quot;unitCode&quot;: &quot;450704500000&quot;,</span><br><span class="line">			&quot;unitName&quot;: &quot;广西钦州市公安局钦州港派出所&quot;,</span><br><span class="line">			&quot;userName&quot;: &quot;盘龙&quot;,</span><br><span class="line">			&quot;userPhone&quot;: &quot;13517573372&quot;,</span><br><span class="line">			&quot;useract&quot;: &quot;630163&quot;,</span><br><span class="line">			&quot;workType&quot;: &quot;2&quot;</span><br><span class="line">		&#125;, &#123;</span><br><span class="line">			&quot;areaCode&quot;: &quot;4507&quot;,</span><br><span class="line">			&quot;createdDatetime&quot;: 1543486407436,</span><br><span class="line">			&quot;lat&quot;: 22.221118,</span><br><span class="line">			&quot;lng&quot;: 109.341599,</span><br><span class="line">			&quot;signId&quot;: &quot;&quot;,</span><br><span class="line">			&quot;unitCode&quot;: &quot;450722071300&quot;,</span><br><span class="line">			&quot;unitName&quot;: &quot;广西浦北县公安局交通管理大队张黄中队&quot;,</span><br><span class="line">			&quot;userName&quot;: &quot;陈春池&quot;,</span><br><span class="line">			&quot;userPhone&quot;: &quot;18177797325&quot;,</span><br><span class="line">			&quot;useract&quot;: &quot;631546&quot;,</span><br><span class="line">			&quot;workType&quot;: &quot;2&quot;</span><br><span class="line">		&#125;],</span><br><span class="line">		&quot;total&quot;: 4</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;success&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>被封装成了 Result&lt;ListResult<policelocationbean>&gt;, PoliceLocationBean代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line">public class PoliceLocationBean &#123;</span><br><span class="line">//    &#123;</span><br><span class="line">//        &quot;areaCode&quot;: &quot;4507&quot;,</span><br><span class="line">//            &quot;createdDatetime&quot;: 1497344940000,</span><br><span class="line">//            &quot;lat&quot;: &quot;21.973576&quot;,</span><br><span class="line">//            &quot;lng&quot;: &quot;108.63232&quot;,</span><br><span class="line">//            &quot;signId&quot;: &quot;44455667788991&quot;,</span><br><span class="line">//            &quot;unitCode&quot;: &quot;450700000000&quot;,</span><br><span class="line">//            &quot;unitName&quot;: &quot;广西钦州市公安局&quot;,</span><br><span class="line">//            &quot;userName&quot;: &quot;李钢119&quot;,</span><br><span class="line">//            &quot;userPhone&quot;: &quot;18719136149&quot;,</span><br><span class="line">//            &quot;useract&quot;: &quot;000013&quot;,</span><br><span class="line">//            &quot;workType&quot;: &quot;1&quot;</span><br><span class="line">//    &#125;</span><br><span class="line">    private String areaCode;</span><br><span class="line">    private String createdDatetime;</span><br><span class="line">    private double lat;</span><br><span class="line">    private double lng;</span><br><span class="line">    private String signId;</span><br><span class="line">    private String unitCode;</span><br><span class="line">    private String unitName;</span><br><span class="line">    private String userName;</span><br><span class="line">    private String userPhone;</span><br><span class="line">    private String useract;</span><br><span class="line">    private int workType;</span><br><span class="line"></span><br><span class="line">    public String getAreaCode() &#123;</span><br><span class="line">        return areaCode;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAreaCode(String areaCode) &#123;</span><br><span class="line">        this.areaCode = areaCode;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getCreatedDatetime() &#123;</span><br><span class="line">        return createdDatetime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCreatedDatetime(String createdDatetime) &#123;</span><br><span class="line">        this.createdDatetime = createdDatetime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public double getLat() &#123;</span><br><span class="line">        return lat;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setLat(double lat) &#123;</span><br><span class="line">        this.lat = lat;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public double getLng() &#123;</span><br><span class="line">        return lng;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setLng(double lng) &#123;</span><br><span class="line">        this.lng = lng;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getSignId() &#123;</span><br><span class="line">        return signId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setSignId(String signId) &#123;</span><br><span class="line">        this.signId = signId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUnitCode() &#123;</span><br><span class="line">        return unitCode;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUnitCode(String unitCode) &#123;</span><br><span class="line">        this.unitCode = unitCode;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUnitName() &#123;</span><br><span class="line">        return unitName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUnitName(String unitName) &#123;</span><br><span class="line">        this.unitName = unitName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUserName() &#123;</span><br><span class="line">        return userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserName(String userName) &#123;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUserPhone() &#123;</span><br><span class="line">        return userPhone;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserPhone(String userPhone) &#123;</span><br><span class="line">        this.userPhone = userPhone;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUseract() &#123;</span><br><span class="line">        return useract;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUseract(String useract) &#123;</span><br><span class="line">        this.useract = useract;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getWorkType() &#123;</span><br><span class="line">        return workType;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setWorkType(int workType) &#123;</span><br><span class="line">        this.workType = workType;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></policelocationbean></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/06/react-native/18.ScrollView嵌套FlatList滚动处理/" rel="next" title="十八、ScrollView嵌套FlatList滚动处理">
+                <i class="fa fa-chevron-left"></i> 十八、ScrollView嵌套FlatList滚动处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">wwd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-请求：-巡防记录-https-biz-weicha110-com-biz-app-patrol-personalRankList-返回json如下"><span class="nav-number">1.</span> <span class="nav-text">1.请求： 巡防记录 https://biz.weicha110.com/biz/app/patrol/personalRankList 返回json如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-请求：-https-biz-weicha110-com-biz-app-patrol-pointRank-返回json如下"><span class="nav-number">2.</span> <span class="nav-text">2.请求： https://biz.weicha110.com/biz/app/patrol/pointRank 返回json如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-请求：-警力分布-https-biz-weicha110-com-biz-app-trajectory-qrygps-返回json如下"><span class="nav-number">3.</span> <span class="nav-text">3.请求： 警力分布 https://biz.weicha110.com/biz/app/trajectory/qrygps 返回json如下</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wwd</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
