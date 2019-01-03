@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="br/&amp;gt;  kotlin的 apply使用：有如下Kotlin代码12var intent = getInitIntent(readableMap)intent.setClassName(currentActivity, readableMap.getString(&amp;quot;entry&amp;quot;))   在kotlin中又更好实现方式：1234567	var intent = getIn">
+<meta name="description" content="br/&amp;gt; 1. kotlin的 apply使用：有如下Kotlin代码12var intent = getInitIntent(readableMap)intent.setClassName(currentActivity, readableMap.getString(&amp;quot;entry&amp;quot;)) 在kotlin中又更好实现方式：1234567	var intent = getIn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="十、kotlin综合笔记">
 <meta property="og:url" content="http://yoursite.com/2018/12/03/kotlin/kotlin-10-综合笔记/index.html">
 <meta property="og:site_name" content="凡星的个人博客">
-<meta property="og:description" content="br/&amp;gt;  kotlin的 apply使用：有如下Kotlin代码12var intent = getInitIntent(readableMap)intent.setClassName(currentActivity, readableMap.getString(&amp;quot;entry&amp;quot;))   在kotlin中又更好实现方式：1234567	var intent = getIn">
+<meta property="og:description" content="br/&amp;gt; 1. kotlin的 apply使用：有如下Kotlin代码12var intent = getInitIntent(readableMap)intent.setClassName(currentActivity, readableMap.getString(&amp;quot;entry&amp;quot;)) 在kotlin中又更好实现方式：1234567	var intent = getIn">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-03T02:58:28.336Z">
+<meta property="og:updated_time" content="2018-12-05T10:49:02.813Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="十、kotlin综合笔记">
-<meta name="twitter:description" content="br/&amp;gt;  kotlin的 apply使用：有如下Kotlin代码12var intent = getInitIntent(readableMap)intent.setClassName(currentActivity, readableMap.getString(&amp;quot;entry&amp;quot;))   在kotlin中又更好实现方式：1234567	var intent = getIn">
+<meta name="twitter:description" content="br/&amp;gt; 1. kotlin的 apply使用：有如下Kotlin代码12var intent = getInitIntent(readableMap)intent.setClassName(currentActivity, readableMap.getString(&amp;quot;entry&amp;quot;)) 在kotlin中又更好实现方式：1234567	var intent = getIn">
 
 
 
@@ -332,11 +332,8 @@
 
       
         <p>br/&gt;</p>
-<ol>
-<li>kotlin的 apply使用：<br>有如下Kotlin代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var intent = getInitIntent(readableMap)</span><br><span class="line">intent.setClassName(currentActivity, readableMap.getString(&quot;entry&quot;))</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>在kotlin中又更好实现方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">	var intent = getInitIntent(readableMap).apply &#123;</span><br><span class="line">		setClassName(currentActivity, readableMap.getString(&quot;entry&quot;))</span><br><span class="line">	&#125;</span><br><span class="line">```	</span><br><span class="line">虽然从代码量看都是2行。但后者是将定义及赋值统一为一条语句来实现。</span><br><span class="line"></span><br><span class="line">2. java中判断字符串值是否相等使用的是equals, 而在kotlin中进行了简化。使用 == 即可。</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-kotlin的-apply使用："><a href="#1-kotlin的-apply使用：" class="headerlink" title="1. kotlin的 apply使用："></a>1. kotlin的 apply使用：</h3><p>有如下Kotlin代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var intent = getInitIntent(readableMap)</span><br><span class="line">intent.setClassName(currentActivity, readableMap.getString(&quot;entry&quot;))</span><br></pre></td></tr></table></figure></p>
+<p>在kotlin中又更好实现方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">	var intent = getInitIntent(readableMap).apply &#123;</span><br><span class="line">		setClassName(currentActivity, readableMap.getString(&quot;entry&quot;))</span><br><span class="line">	&#125;</span><br><span class="line">```	</span><br><span class="line">虽然从代码量看都是2行。但后者是将定义及赋值统一为一条语句来实现。</span><br><span class="line"></span><br><span class="line">### 2. java中判断字符串值是否相等使用的是equals, 而在kotlin中进行了简化。使用 == 即可。</span><br></pre></td></tr></table></figure></p>
 <pre><code>if (&quot;action&quot;.equals(key)) {//java写法,kotlin中不推荐
     intent.setAction(readableMap.getString(key))
 }
@@ -344,7 +341,12 @@
 if (&quot;action&quot; == key) {
     intent.action = readableMap.getString(key)
 }
-</code></pre><p><code>`</code>    </p>
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### 3. kotlin文件IO提供了很多有用方法。比如要迭代删除文件及子目录下文件夹及文件：</span><br></pre></td></tr></table></figure>
+<pre><code>var file = File(BaseApplication.getInstance().filesDir, &quot;rn&quot;)
+file.deleteRecursively()
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 4.  lateinit关键字使用</span><br><span class="line">使用kotlin初期，我在声明类的属性变量时总是采用如下定义方式：</span><br><span class="line"></span><br><span class="line">private var versionRepo : VersionRepo? = null</span><br><span class="line">要使用该变量 versionRepo时，总是得要加 ? 或者 !! 比如：</span><br></pre></td></tr></table></figure>
+<p>private fun initUpgrade() {<br>    versionRepo = VersionRepo(versionViewModel)<br>    lifecycle.addObserver(versionRepo!!)<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">所有要使用 versionRepo 变量地方都要加上讨厌的 ? 或者 !! 这就是 lateinit 关键字使用好处之一了：</span><br></pre></td></tr></table></figure></p>
+<p>private lateinit var versionRepo: VersionRepo<br>初始化后再使用 versionRepo变量都不用再加 ?或者 !!<br><code>`</code></p>
 
       
     </div>
@@ -433,8 +435,17 @@ if (&quot;action&quot; == key) {
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -449,7 +460,7 @@ if (&quot;action&quot; == key) {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -460,7 +471,7 @@ if (&quot;action&quot; == key) {
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -495,6 +506,22 @@ if (&quot;action&quot; == key) {
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-kotlin的-apply使用："><span class="nav-number">1.</span> <span class="nav-text">1. kotlin的 apply使用：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -508,7 +535,7 @@ if (&quot;action&quot; == key) {
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
