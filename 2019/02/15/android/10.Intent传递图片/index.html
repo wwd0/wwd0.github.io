@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="1234567891011121314151617181920212223242526272829303132333435363738394041export default class LabelMedia extends Component &amp;#123;    constructor(props) &amp;#123;        super(props);        this.state =">
+<meta name="description" content="今天碰到一个需求：A界面点击用户头像logo, 能够在B界面放大预览。B界面预览图片使用的是Glide。有多种办法，记录如下： 1. 傻瓜办法(不推荐)：获取用户头像控件(一般是ImageView)的Bitmap, 传递到B界面再用Glide展示123456789101112imageView.buildDrawingCache();Bitmap image= imageView.getDraw">
 <meta property="og:type" content="article">
-<meta property="og:title" content="十三、setState数组操作">
-<meta property="og:url" content="http://yoursite.com/2018/10/18/react-native/13.setState数组操作/index.html">
+<meta property="og:title" content="九、Intent传递图片">
+<meta property="og:url" content="http://yoursite.com/2019/02/15/android/10.Intent传递图片/index.html">
 <meta property="og:site_name" content="凡星的个人博客">
-<meta property="og:description" content="1234567891011121314151617181920212223242526272829303132333435363738394041export default class LabelMedia extends Component &amp;#123;    constructor(props) &amp;#123;        super(props);        this.state =">
+<meta property="og:description" content="今天碰到一个需求：A界面点击用户头像logo, 能够在B界面放大预览。B界面预览图片使用的是Glide。有多种办法，记录如下： 1. 傻瓜办法(不推荐)：获取用户头像控件(一般是ImageView)的Bitmap, 传递到B界面再用Glide展示123456789101112imageView.buildDrawingCache();Bitmap image= imageView.getDraw">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-10T10:07:54.094Z">
+<meta property="og:updated_time" content="2019-02-15T02:59:02.548Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="十三、setState数组操作">
-<meta name="twitter:description" content="1234567891011121314151617181920212223242526272829303132333435363738394041export default class LabelMedia extends Component &amp;#123;    constructor(props) &amp;#123;        super(props);        this.state =">
+<meta name="twitter:title" content="九、Intent传递图片">
+<meta name="twitter:description" content="今天碰到一个需求：A界面点击用户头像logo, 能够在B界面放大预览。B界面预览图片使用的是Glide。有多种办法，记录如下： 1. 傻瓜办法(不推荐)：获取用户头像控件(一般是ImageView)的Bitmap, 传递到B界面再用Glide展示123456789101112imageView.buildDrawingCache();Bitmap image= imageView.getDraw">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/18/react-native/13.setState数组操作/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/02/15/android/10.Intent传递图片/"/>
 
 
 
 
 
-  <title>十三、setState数组操作 | 凡星的个人博客</title>
+  <title>九、Intent传递图片 | 凡星的个人博客</title>
   
 
 
@@ -242,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/18/react-native/13.setState数组操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/15/android/10.Intent传递图片/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wwd">
@@ -259,7 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">十三、setState数组操作</h1>
+          <h1 class="post-title" itemprop="name headline">九、Intent传递图片</h1>
         
 
         <div class="post-meta">
@@ -271,8 +271,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-18T15:37:13+08:00">
-                2018-10-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-15T10:35:13+08:00">
+                2019-02-15
               </time>
             
 
@@ -294,8 +294,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/React-Native/" itemprop="url" rel="index">
-                    <span itemprop="name">React Native</span>
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
                   </a>
                 </span>
 
@@ -331,10 +331,12 @@
       
 
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">export default class LabelMedia extends Component &#123;</span><br><span class="line"></span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line"></span><br><span class="line">        this.state = &#123;</span><br><span class="line">            children: []</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	addItem(item)&#123;</span><br><span class="line">		this.setState(&#123;</span><br><span class="line">			children: [</span><br><span class="line">				...this.state.children,</span><br><span class="line">				item</span><br><span class="line">			]</span><br><span class="line">        &#125;)</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	addDataSet(dataSet)&#123;</span><br><span class="line">	</span><br><span class="line">		//不好的写法,问题出在this.state.children,不推荐</span><br><span class="line">		this.setState(&#123;</span><br><span class="line">			children: this.state.children.concat(dataSet)</span><br><span class="line">        &#125;)</span><br><span class="line">		</span><br><span class="line">		//推荐写法</span><br><span class="line">		this.setState((prevState, props)=&gt;(&#123;</span><br><span class="line">			children: prevState.data.concat(dataSet)</span><br><span class="line">		&#125;))</span><br><span class="line">		//总结: this.setState既可以传对象,也可以是个方法,推荐用方法,因为可以获取到上一次的state值</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	removeItem(item)&#123;</span><br><span class="line">		this.setState(&#123;</span><br><span class="line">            children: this.state.children.filter( (item) =&gt;&#123;</span><br><span class="line">                return item !== path</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>续：如果在setState后，要立即将给变量值回传给父类，供父类操作。上面这么写是不行的。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">addItem(item)&#123;</span><br><span class="line">	this.setState(&#123;</span><br><span class="line">		children: [</span><br><span class="line">			...this.state.children,</span><br><span class="line">			item</span><br><span class="line">		]</span><br><span class="line">       &#125;)</span><br><span class="line">	console.warn(&apos;result: &apos; + this.state.children);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>你会发现，打印出来的根本不是你想要的结果。这就是react native的机制。 setState后，得要在render生命周期函数中，才是真正更改的结果。<br>毕竟setState是耗时的，涉及到界面的刷新。所以是异步操作。不能立即取。要立即获取变量值，可以这样写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">addItem(item)&#123;</span><br><span class="line">	let data = [...this.state.children, item];</span><br><span class="line">	this.setState(&#123;</span><br><span class="line">		children: data</span><br><span class="line">       &#125;);</span><br><span class="line">	console.warn(&apos;result: &apos; + data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样就可以了。 removeItem方法同上。</p>
+        <p><br></p>
+<p>今天碰到一个需求：A界面点击用户头像logo, 能够在B界面放大预览。B界面预览图片使用的是Glide。有多种办法，记录如下：</p>
+<h3 id="1-傻瓜办法-不推荐-：获取用户头像控件-一般是ImageView-的Bitmap-传递到B界面再用Glide展示"><a href="#1-傻瓜办法-不推荐-：获取用户头像控件-一般是ImageView-的Bitmap-传递到B界面再用Glide展示" class="headerlink" title="1. 傻瓜办法(不推荐)：获取用户头像控件(一般是ImageView)的Bitmap, 传递到B界面再用Glide展示"></a>1. 傻瓜办法(不推荐)：获取用户头像控件(一般是ImageView)的Bitmap, 传递到B界面再用Glide展示</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">imageView.buildDrawingCache();</span><br><span class="line">Bitmap image= imageView.getDrawingCache();</span><br><span class="line"></span><br><span class="line">Bundle extras = new Bundle();</span><br><span class="line">extras.putParcelable(&quot;imagebitmap&quot;, image);</span><br><span class="line">intent.putExtras(extras);</span><br><span class="line">startActivity(intent);</span><br><span class="line"></span><br><span class="line">B界面展示：</span><br><span class="line">Bundle extras = getIntent().getExtras();</span><br><span class="line">Bitmap bmp = (Bitmap) extras.getParcelable(&quot;imagebitmap&quot;);</span><br><span class="line">Glide.with(context).load(bmp)</span><br></pre></td></tr></table></figure>
+<p>办法1不推荐原因是Intent传递Bitmap很容易造成OOM。据说Bitmap不能大于40K，我没有验证过。</p>
+<h3 id="2-推荐方案：我们知道显示的图片要么是来自于网络要么是来自本地。网络图片我们用intent传递url过去，本地图片传递文件名。不管是哪种，都传递的是字符串。现在看下接收端怎么处理"><a href="#2-推荐方案：我们知道显示的图片要么是来自于网络要么是来自本地。网络图片我们用intent传递url过去，本地图片传递文件名。不管是哪种，都传递的是字符串。现在看下接收端怎么处理" class="headerlink" title="2. 推荐方案：我们知道显示的图片要么是来自于网络要么是来自本地。网络图片我们用intent传递url过去，本地图片传递文件名。不管是哪种，都传递的是字符串。现在看下接收端怎么处理"></a>2. 推荐方案：我们知道显示的图片要么是来自于网络要么是来自本地。网络图片我们用intent传递url过去，本地图片传递文件名。不管是哪种，都传递的是字符串。现在看下接收端怎么处理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1.本地图片：假设url为 showLocalPic:ic_logo_64</span><br><span class="line"></span><br><span class="line">	if (mImgUrl.startsWith(&quot;showLocalPic:&quot;)) &#123;</span><br><span class="line">		mImgUrl = mImgUrl.replaceFirst(&quot;showLocalPic:&quot;, &quot;&quot;);</span><br><span class="line">		int imgResId = getResources().getIdentifier(mImgUrl, &quot;drawable&quot;, getPackageName());</span><br><span class="line">		Glide.with(context).load(imgResId)</span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">2. 网络图片</span><br><span class="line">	如果是纯url的，直接加载即可 Glide.with(context).load(mImgUrl)</span><br><span class="line">	如果是Base64,也就是url存储的是个图片:</span><br><span class="line">	byte[] decodedByteArray = Base64.decode(mImgUrl, Base64.DEFAULT );</span><br><span class="line">	Glide.with(this).load(decodedByteArray);</span><br></pre></td></tr></table></figure>
+<p>注意：使用文件名获取对应资源ID办法： int imgResId = getResources().getIdentifier(mImgUrl, “drawable”, getPackageName());<br>这里的 drawable 还可以是 xml, layout等等</p>
 
       
     </div>
@@ -359,8 +361,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/15/reactjs/2.dom元素展示leisiinnerHTML效果/" rel="next" title="一、dom元素展示leisiinnerHTML效果">
-                <i class="fa fa-chevron-left"></i> 一、dom元素展示leisiinnerHTML效果
+              <a href="/2019/02/13/android/8.RecyclerView笔记/" rel="next" title="八、RecyclerView笔记">
+                <i class="fa fa-chevron-left"></i> 八、RecyclerView笔记
               </a>
             
           </div>
@@ -369,8 +371,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/18/react-native/14.字符串与变量拼接/" rel="prev" title="十四、字符串与变量拼接">
-                十四、字符串与变量拼接 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/15/综合/2.大杂烩/" rel="prev" title="二、大杂烩">
+                二、大杂烩 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -423,8 +425,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -439,7 +450,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -450,7 +461,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -484,6 +495,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-傻瓜办法-不推荐-：获取用户头像控件-一般是ImageView-的Bitmap-传递到B界面再用Glide展示"><span class="nav-number">1.</span> <span class="nav-text">1. 傻瓜办法(不推荐)：获取用户头像控件(一般是ImageView)的Bitmap, 传递到B界面再用Glide展示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-推荐方案：我们知道显示的图片要么是来自于网络要么是来自本地。网络图片我们用intent传递url过去，本地图片传递文件名。不管是哪种，都传递的是字符串。现在看下接收端怎么处理"><span class="nav-number">2.</span> <span class="nav-text">2. 推荐方案：我们知道显示的图片要么是来自于网络要么是来自本地。网络图片我们用intent传递url过去，本地图片传递文件名。不管是哪种，都传递的是字符串。现在看下接收端怎么处理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
