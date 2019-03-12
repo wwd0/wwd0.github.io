@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="凡星的个人博客">
 <meta property="og:description" content="br/&amp;gt; 1. kotlin的 apply使用：有如下Kotlin代码12var intent = getInitIntent(readableMap)intent.setClassName(currentActivity, readableMap.getString(&amp;quot;entry&amp;quot;)) 在kotlin中又更好实现方式：1234567	var intent = getIn">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-11T01:08:39.956Z">
+<meta property="og:updated_time" content="2019-03-02T07:55:37.392Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="十、kotlin综合笔记">
 <meta name="twitter:description" content="br/&amp;gt; 1. kotlin的 apply使用：有如下Kotlin代码12var intent = getInitIntent(readableMap)intent.setClassName(currentActivity, readableMap.getString(&amp;quot;entry&amp;quot;)) 在kotlin中又更好实现方式：1234567	var intent = getIn">
@@ -354,7 +354,106 @@ file.deleteRecursively()
 </code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">现在可以一行简写：</span><br></pre></td></tr></table></figure></p>
 <p>class RnIntentModule(reactContext : ReactApplicationContext?) : ReactContextBaseJavaModule(reactContext) {</p>
 <pre><code>override fun getName() = &quot;RnIntent&quot;
-</code></pre><p>}<br><code>`</code></p>
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 6.	函数参数带默认值</span><br><span class="line"></span><br><span class="line">NotificationUtils.kt</span><br></pre></td></tr></table></figure></p>
+<p>   fun buildPushNotification(context: Context, notification: com.govnet.im.main.notification.Notification, intent: Intent): Notification {<br>        return buildPushNotification(context, notification.getNotificationMessage(context), intent)<br>    }</p>
+<pre><code>public fun buildPushNotification(context: Context, msg: String, intent: Intent, vibrate: Boolean = false): Notification {
+    val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    val builder = NotificationCompat.Builder(context, SILENT_NOTIFICATION_CHANNEL_ID)
+            .setWhen(System.currentTimeMillis())
+            .setContentTitle(defaultTitle)
+            .setContentText(msg)
+            .setSmallIcon(defaultIcon)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+    if (vibrate) {
+        builder.setVibrate(longArrayOf(0, 1000, 0, 0))
+    }
+    return builder.build()
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 7.	回调函数作为函数参数的写法</span><br><span class="line">DateTimePickDialog.java</span><br></pre></td></tr></table></figure>
+<p>public class DateTimePickDialog {</p>
+<pre><code>private Activity activity;
+
+public DateTimePickDialog(Activity activity) {
+    this.activity = activity;
+}
+public void dateTimePickDialog(final TextView inputDate, final String formatStr, final OnDateTimeSelectClickListener listener) {
+    new AlertDialog.Builder(activity)
+                                .setPositiveButton(&quot;确定&quot;, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        if (onDateTimeSelectClickListener != null) {
+                                            onDateTimeSelectClickListener.onDateTimeSelectClick();
+                                        }
+                                    }
+                                })
+                                .setNegativeButton(&quot;取消&quot;, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                    }
+                                }).show();
+}
+public interface OnDateTimeSelectClickListener {
+    void onDateTimeSelectClick();
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在 OnMapSearchPopupWindow.kt 中调用 dateTimePickDialog 方法</span><br></pre></td></tr></table></figure></p>
+<p>class OnMapSearchPopupWindow(var context: Context) : PopupWindow() {<br>        var onDateTimePickListener: ((Boolean, String) -&gt; Unit)? = null</p>
+<pre><code>private fun selectTime() {
+    val dialog = DateTimePickDialog(this)
+
+    //写法一(不推荐)
+    dialog.dateTimePickDialog(editor.editText, resFormat, object: DateTimePickDialog.OnDateTimeSelectClickListener{
+        override fun onDateTimeSelectClick() {
+            onDateTimePickListener?.invoke(isStartTime, editor.editText.text.toString())
+        }
+    })
+
+    //写法二
+    dialog.dateTimePickDialog(editor.editText, resFormat, {
+        onDateTimePickListener?.invoke(isStartTime, editor.editText.text.toString())
+    })
+
+    写法二在as会有个黄色波浪线的代码提示：Move lambda arguments out of parenthesis , 按代码提示后写法变为：
+    //写法三
+    dialog.dateTimePickDialog(editor.editText){
+        onDateTimePickListener?.invoke(isStartTime, editor.editText.text.toString())
+    }
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">MainActivity.kt中 初始化 onDateTimePickListener</span><br></pre></td></tr></table></figure></p>
+<p>class MainActivity : Activity() {</p>
+<pre><code>private var mOnMapSearchPopupWindow: OnMapSearchPopupWindow? = null
+
+override fun onCreate(savedInstanceState: Bundle?) {
+
+    mOnMapSearchPopupWindow = OnMapSearchPopupWindow(this)
+    mOnMapSearchPopupWindow?.onDateTimePickListener = { isStartTime, dateTime -&gt;
+                if (isStartTime) {
+                    mQueryPersonTypeReq.startTime = dateTime
+                } else {
+                    mQueryPersonTypeReq.endTime = dateTime
+                }
+                mOnMapPresenter.queryPersonType(mQueryPersonTypeReq)
+            }
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 8. kotlin中对于include子布局文件后的id引用：</span><br><span class="line">activity_main.xml</span><br></pre></td></tr></table></figure></p>
+<relativelayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" style="@style/layout_full" android:orientation="vertical">
+
+<pre><code>&lt;include android:id=&quot;@+id/toolBarInclude&quot;
+    layout=&quot;@layout/base_toolbar&quot;/&gt;
+</code></pre><p></p></relativelayout><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">base_toolbar.xml</span><br></pre></td></tr></table></figure><p></p>
+<p>&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</p>
+<p>&lt;android.support.v7.widget.Toolbar xmlns:android=”<a href="http://schemas.android.com/apk/res/android&quot;" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android&quot;</a><br>    xmlns:app=”<a href="http://schemas.android.com/apk/res-auto&quot;" target="_blank" rel="noopener">http://schemas.android.com/apk/res-auto&quot;</a><br>    android:id=”@+id/toolBar”<br>    android:layout_width=”match_parent”<br>    android:layout_height=”42dp”<br>    android:background=”@color/color_theme”<br>    app:popupTheme=”@style/ThemeOverlay.AppCompat.Light”<br>    app:subtitleTextAppearance=”@style/baseToolbarSubTitle”<br>    app:theme=”@style/ThemeOverlay.AppCompat.Dark.ActionBar”<br>    app:titleTextAppearance=”@style/baseToolbarTitle”&gt;<br>&lt;/android.support.v7.widget.Toolbar&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MainActivity如何使用ToolBar这个控件呢？</span><br></pre></td></tr></table></figure></p>
+<p>import kotlinx.android.synthetic.main.activity_main.*</p>
+<p>private fun initToolbar() {</p>
+<pre><code>val myToolBar = (toolBarInclude as Toolbar)
+myToolBar.title = getString(R.string.call_meeting_title)
+myToolBar.setNavigationIcon(R.drawable.base_ic_arrow_toolbar)
+myToolBar.setNavigationOnClickListener {
+    finish()
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">debug下程序就知道 toolBarInclude 就是个Toolbar对象，所以强转他就可以使用了</span><br><span class="line"></span><br><span class="line">### 9. if语句判断变量为空就return java代码写法：</span><br></pre></td></tr></table></figure></p>
+<p>MXSession session = Matrix.getInstance(context).getDefaultSession();<br>if(session == null){<br>    return;<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有4行代码，而用kotlin一行代码即可搞定：</span><br></pre></td></tr></table></figure></p>
+<p>val session = Matrix.getInstance(context).defaultSession ?: return<br><code>`</code></p>
 
       
     </div>
@@ -468,7 +567,7 @@ file.deleteRecursively()
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -479,7 +578,7 @@ file.deleteRecursively()
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
