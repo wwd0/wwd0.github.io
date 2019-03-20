@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="WebRTC: Web Real-Time CommunicationICE：ICE全名叫交互式连接建立(Interactive Connectivity Establishment)STUN：Session Traversal Utilities for NATTURN：Traversal Using Relay NAT  数据发送端和接收端都需要通过公网服务器进行转发（因为发送端和接收端通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一、webRTC术语篇">
+<meta property="og:url" content="http://yoursite.com/2019/03/14/im/webRTC/1.webRTC术语篇/index.html">
+<meta property="og:site_name" content="凡星的个人博客">
+<meta property="og:description" content="WebRTC: Web Real-Time CommunicationICE：ICE全名叫交互式连接建立(Interactive Connectivity Establishment)STUN：Session Traversal Utilities for NATTURN：Traversal Using Relay NAT  数据发送端和接收端都需要通过公网服务器进行转发（因为发送端和接收端通">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-17T03:46:08.004Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一、webRTC术语篇">
+<meta name="twitter:description" content="WebRTC: Web Real-Time CommunicationICE：ICE全名叫交互式连接建立(Interactive Connectivity Establishment)STUN：Session Traversal Utilities for NATTURN：Traversal Using Relay NAT  数据发送端和接收端都需要通过公网服务器进行转发（因为发送端和接收端通">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/14/im/webRTC/1.webRTC术语篇/"/>
+
+
+
+
+
+  <title>一、webRTC术语篇 | 凡星的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">凡星的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/14/im/webRTC/1.webRTC术语篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wwd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="凡星的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一、webRTC术语篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-14T10:17:13+08:00">
+                2019-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webRTC/" itemprop="url" rel="index">
+                    <span itemprop="name">webRTC</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><br></p>
+<ol>
+<li><p>WebRTC: Web Real-Time Communication<br>ICE：ICE全名叫交互式连接建立(Interactive Connectivity Establishment)<br>STUN：Session Traversal Utilities for NAT<br>TURN：Traversal Using Relay NAT</p>
+</li>
+<li><p>数据发送端和接收端都需要通过公网服务器进行转发（因为发送端和接收端通常都做了NAT，彼此并不知对方实际位置）。</p>
+</li>
+</ol>
+<p>犹如一个中国人和一个外国人，他们彼此不懂对方的语言，不知道对方的地址，但是中间有一个邮局知道对方的地址，因为对方都在邮局做了注册地址并且获取了同一个编号，那么如果他们之间需要互相通信的话，就需要和邮局联系，邮局会进行翻译并发往同一编号的对应地址。 但是这中间就会产生一个问题，这时候如果有多个中国人和多个外国人都要进行通信，那么邮局的工作量就会越来越大，当他们的通信超过原有邮局人手可处理规模时，邮局要么扩招（需要钱）要么延缓发送（会造成延迟，甚至丢失信件）。</p>
+<p>怎么办？这时我们就要考虑另外一种解决方案了。我们让发送端直接发送数据给接收端，这样就可以省掉服务器的转发功能了是不是？当然是，但是如我们上述例子所说，中国人不懂俄语，俄罗斯人不懂中文，鸡同鸭讲眼碌碌。他们之间怎么通信呢？邮局觉得上述方式太不靠谱了，于是决定通过一种技术，当有一个中国人或者外国人寻求转发时，邮局通过“魔法”查找出了对方地址，并且不说话丢给了对方一只翻译面包，对方接收到翻译面包后可以习得对方语言，直接和对方通话。</p>
+<p>例子中的“魔法”就是本文要介绍的 ICE框架，而翻译面包就是NAT穿越技术。</p>
+<p>在真实世界的网络中，因为IPv4的地址个数问题，我们基本都是采用NAT连接的：<br>当处于以上网络时，Peer和Peer之间基本都是通过NAT和防火墙连接上互联网的，所以当我们要建立两端之间的直接通信时，我们需要服务器对两端进行Signalling，具体如何进行Signalling会在下篇文章中介绍。本文假设两端已经Signalling完毕。</p>
+<ol>
+<li>ICE框架 （ICE会尝试找到端与端之间最优连接路径）会完成以下工作：</li>
+</ol>
+<p>·首先ICE会直接利用主机地址和网卡地址进行连接，如果刚好端拥有公网IP（无NAT），那么此时可以直接建立连接。<br>·如果第一步失败，ICE会尝试建立STUN连接。<br>·如果第二步失败，ICE会利用TURN服务器建立连接。</p>
+<ol>
+<li><p>STUN（Session Traversal Utilities for NAT）<br>STUN服务器提供的功能十分简单，它让使用者获取自己所在的公网地址和在NAT中所映射端口号，这个服务有什么用呢？当使用者知道自己所在公网地址以及内部NAT映射端口时，它便可以讲自己的公网地址和端口号通知对方，这样对方就可以在茫茫大网中找到自己。在以往统计中，WebRTC通过STUN建立连接的成功率为86%。</p>
+</li>
+<li><p>TURN（Traversal Using Relay NAT）<br>TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是通过取得应用层中的公有地址达到NAT穿透。但实现TURN client的终端必须在通讯开始前与TURN server进行交互，并要求TURN server产生”relay port”，也就是relayed-transport-address。这时TURN server会建立peer，即远端端点（remote endpoints），开始进行中继（relay）的动作，TURN client利用relay port将资料传送至peer，再由peer转传到另一方的TURN client。</p>
+</li>
+</ol>
+<p>webrtc的P2P穿透部分是由libjingle实现的.<br>步骤顺序大概是这样的: </p>
+<ol>
+<li>尝试直连.</li>
+<li>通过stun服务器进行穿透</li>
+<li>无法穿透则通过turn服务器中转. </li>
+</ol>
+<p>android socket.io聊天demo: <a href="https://dev.to/medaymentn/creating-a-realtime-chat-app-with-android--nodejs-and-socketio-4o55" target="_blank" rel="noopener">https://dev.to/medaymentn/creating-a-realtime-chat-app-with-android--nodejs-and-socketio-4o55</a></p>
+<p>How does webrtc work?<br>Before we start exchanging data between two peers via webrtc, we need to provide info to the peers about each other for media format negotiation and discovery.<br>This is done via following protocols. Interactive Connectivity Establishment (ICE) is used for connecting peer to peer. Session Description Protocol (SDP) is used to provide the metadata of the media content like resolution, encoding, bitrate, etc.<br>If the two peers are not on same network then we will need to provide a Session Traversal Utilities for NAT (STUN) server to provide the public address of the peers.<br>If any of the network is firewall protected the we need to provide Traversal Using Relays around NAT (TURN) servers also.<br>You can learn more about these protocols here. The mechanism to exchange ICE and SDP between the peers is called Signalling System and is usually done via websockets.</p>
+<p><a href="https://hackernoon.com/real-time-communication-with-webrtc-on-android-f96cdcfc4771" target="_blank" rel="noopener">https://hackernoon.com/real-time-communication-with-webrtc-on-android-f96cdcfc4771</a><br><a href="https://webrtc.org/native-code/android/" target="_blank" rel="noopener">https://webrtc.org/native-code/android/</a><br><a href="https://github.com/muaz-khan/WebRTC-Experiment" target="_blank" rel="noopener">https://github.com/muaz-khan/WebRTC-Experiment</a><br>List&lt;PeerConnection.IceServer&gt; iceServers = new ArrayList&lt;&gt;();</p>
+<p><a href="https://blog.csdn.net/rayxiang520/article/details/78432838" target="_blank" rel="noopener">https://blog.csdn.net/rayxiang520/article/details/78432838</a></p>
+<p>国内免费可用的STUN服务器(webrtc 必备）<br>stun:stun1.l.google.com:19302<br>stun:stun2.l.google.com:19302<br>stun:stun3.l.google.com:19302<br>stun:stun4.l.google.com:19302<br>stun:23.21.150.121<br>stun:stun01.sipphone.com<br>stun:stun.ekiga.net<br>stun:stun.fwdnet.net<br>stun:stun.ideasip.com<br>stun:stun.iptel.org<br>stun:stun.rixtelecom.se<br>stun:stun.schlund.de<br>stun:stunserver.org<br>stun:stun.softjoys.com<br>stun:stun.voiparound.com<br>stun:stun.voipbuster.com<br>stun:stun.voipstunt.com<br>stun:stun.voxgratia.org<br>stun:stun.xten.com</p>
+<p>webrtc的stun服务器无法穿透国内三大运营商4G<br>最近在研究P2P视频通信，由于要集成到APP中，信令服务器与STUN服务器都是部署在公网上(阿里云)。经过测试最终结果如下：</p>
+<p>同一个局域网的两台移动设备可以连接进行通信<br>移动4G与WiFi，移动4G与联通4G，移动4G与电信4G都是可以连通进行通信<br>联通4G与WiFi，电信4G与WiFi，WiFi与WiFi偶尔可以通信，但是大多数是不可以连通的<br>以上情况是在STUN穿透服务器下测试的，只要使用TURN服务器进行穿透的话都是可以连通的，但是不太理解STUN服务器为什么不能穿透联通和电信的4G网络。经过后端和前端的debug及查阅相关资料得到如下发现：<br>运营商的NAT给电信4G或者联通4G分配的内网外网IP映射每次切换数据网络是一直变化的<br>电信4G与联通4G分配是多IP，而移动的4G分配的公网IP是不变的(在P2P连接使用中)，电信、联通4G分配的公网IP一直是变化的且前后端debug到的ip是不同的<br>当两台移动设备尝试建立连接时，如果通过STUN服务器无法穿透，STUN服务器的日志中显示双方在不断的尝试穿透<br>但是问题依然没有解决，所以想请教下各位大牛，联通和电信的内部NAT是什么类型的（如果是对称型NAT就只能依赖TURN服务器转发了）？联通电信分配的公网IP为什么一直是变化的？能否更改stun配置来固定分配一个可直接两客户端直接建立连接的公网IP？当然前提是使用STUN进行穿透，暂时不考虑TURN（因为它都能穿透^_^）希望大家指点一下！</p>
+<p><a href="https://github.com/webrtc/samples" target="_blank" rel="noopener">https://github.com/webrtc/samples</a></p>
+<p>Android IOS WebRTC 音视频开发总结(有87篇博文):     <a href="https://www.cnblogs.com/lingyunhu/tag/webrtc%20android%20ios/" target="_blank" rel="noopener">https://www.cnblogs.com/lingyunhu/tag/webrtc%20android%20ios/</a></p>
+<p>PeerConnection只是用来出来处理客户端与服务端连接的,音视频采集在其他模块里面.</p>
+<p>博主，您研究过apprtc的server搭建吗？</p>
+<p>一、自由职业：</p>
+<p>1、职位1：<br>1.1、熟悉XMPP和openfire，客户想将IM功能外包给熟悉的人士完成，如果觉得您能胜任，我帮您推荐，价格你们自己协商。</p>
+<p>2、职位2：<br>2.1、熟悉nodejs和socket.io，客户IM采用nodejs和socket.io的方案，需找熟悉nodejs的人士完成服务端功能。</p>
+<p>3、职位3：<br>3.1、熟悉WebRTC，熟悉Android或iOS或PC（此职位有全职的，只要告诉我您在哪就行）</p>
+<p>2、培训讲师：</p>
+<p>2.1、语音通讯专家：有编解码、回声、噪声、抖动、语音合成方面的开发经验。</p>
+<p>2.2、视频通讯专家：有图像合成、MCU、编解码，FEC方面的开发经验。</p>
+<p>2.3、移动支付专家：熟悉移动支付开发，最好在BAT等企业有从事过具体开发工作。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/09/rxkotlin/2.使用zip将两个请求并发执行并将结果统一返回/" rel="next" title="一、使用zip将两个请求并发执行并将结果统一返回">
+                <i class="fa fa-chevron-left"></i> 一、使用zip将两个请求并发执行并将结果统一返回
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/16/android/17.如何让一个project依赖另一个project/" rel="prev" title="十七、 如何让一个project依赖另一个project">
+                十七、 如何让一个project依赖另一个project <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">wwd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wwd</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

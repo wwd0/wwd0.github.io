@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="1.介绍官网： https://matrix.org/docs/projects/try-matrix-now.html套用官网的说法：Matrix is an ecosystem for open and interoperable communication. Matrix是一个开源的生态系统，其实就是IM聊天系统。分为服务端和客户端 2. 客户端客户端有很多种：web客户端 Riot, a">
+<meta name="description" content="1. github上有很多工程是这样做的。app工程是一个地址，将要依赖的library做成sdk,放在另一个git地址里。app工程会在build.gradle依赖的是sdk生成的aar.这样子导致我们debug程序会很困难。我举个例子：有个叫riot-android的app工程： https://github.com/vector-im/riot-android  在其工程目录vector下">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一、matrix资源及介绍">
-<meta property="og:url" content="http://yoursite.com/2018/12/06/im-matrix/1. matrix资源及介绍/index.html">
+<meta property="og:title" content="十七、 如何让一个project依赖另一个project">
+<meta property="og:url" content="http://yoursite.com/2019/03/16/android/17.如何让一个project依赖另一个project/index.html">
 <meta property="og:site_name" content="凡星的个人博客">
-<meta property="og:description" content="1.介绍官网： https://matrix.org/docs/projects/try-matrix-now.html套用官网的说法：Matrix is an ecosystem for open and interoperable communication. Matrix是一个开源的生态系统，其实就是IM聊天系统。分为服务端和客户端 2. 客户端客户端有很多种：web客户端 Riot, a">
+<meta property="og:description" content="1. github上有很多工程是这样做的。app工程是一个地址，将要依赖的library做成sdk,放在另一个git地址里。app工程会在build.gradle依赖的是sdk生成的aar.这样子导致我们debug程序会很困难。我举个例子：有个叫riot-android的app工程： https://github.com/vector-im/riot-android  在其工程目录vector下">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-06T08:48:49.969Z">
+<meta property="og:updated_time" content="2019-03-16T10:08:20.484Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一、matrix资源及介绍">
-<meta name="twitter:description" content="1.介绍官网： https://matrix.org/docs/projects/try-matrix-now.html套用官网的说法：Matrix is an ecosystem for open and interoperable communication. Matrix是一个开源的生态系统，其实就是IM聊天系统。分为服务端和客户端 2. 客户端客户端有很多种：web客户端 Riot, a">
+<meta name="twitter:title" content="十七、 如何让一个project依赖另一个project">
+<meta name="twitter:description" content="1. github上有很多工程是这样做的。app工程是一个地址，将要依赖的library做成sdk,放在另一个git地址里。app工程会在build.gradle依赖的是sdk生成的aar.这样子导致我们debug程序会很困难。我举个例子：有个叫riot-android的app工程： https://github.com/vector-im/riot-android  在其工程目录vector下">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/06/im-matrix/1. matrix资源及介绍/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/03/16/android/17.如何让一个project依赖另一个project/"/>
 
 
 
 
 
-  <title>一、matrix资源及介绍 | 凡星的个人博客</title>
+  <title>十七、 如何让一个project依赖另一个project | 凡星的个人博客</title>
   
 
 
@@ -242,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/im-matrix/1. matrix资源及介绍/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/android/17.如何让一个project依赖另一个project/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wwd">
@@ -259,7 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">一、matrix资源及介绍</h1>
+          <h1 class="post-title" itemprop="name headline">十七、 如何让一个project依赖另一个project</h1>
         
 
         <div class="post-meta">
@@ -271,8 +271,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T15:45:13+08:00">
-                2018-12-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-16T17:50:13+08:00">
+                2019-03-16
               </time>
             
 
@@ -294,8 +294,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/im-matrix/" itemprop="url" rel="index">
-                    <span itemprop="name">im-matrix</span>
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
                   </a>
                 </span>
 
@@ -332,10 +332,9 @@
 
       
         <p><br></p>
-<h3 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h3><p>官网： <a href="https://matrix.org/docs/projects/try-matrix-now.html" target="_blank" rel="noopener">https://matrix.org/docs/projects/try-matrix-now.html</a><br>套用官网的说法：Matrix is an ecosystem for open and interoperable communication. Matrix是一个开源的生态系统，其实就是IM聊天系统。分为服务端和客户端</p>
-<h3 id="2-客户端"><a href="#2-客户端" class="headerlink" title="2. 客户端"></a>2. 客户端</h3><p>客户端有很多种：web客户端 Riot, android的实现 Riot-android, 还有ios, 命令行的等等。<br>riot-android 的github地址： <a href="https://github.com/vector-im/riot-android" target="_blank" rel="noopener">https://github.com/vector-im/riot-android</a><br>riot-android只是界面，真正发消息等核心操作位于 vector-&gt;libs-&gt; matrix-sdk.aar 该aar的源码怎么获取呢？ build_matrix_sdk_lib.sh 有这么一行：<br>git clone -b ${branch} <a href="https://github.com/matrix-org/matrix-android-sdk" target="_blank" rel="noopener">https://github.com/matrix-org/matrix-android-sdk</a><br>故得到 matrix-sdk 的源码： <a href="https://github.com/matrix-org/matrix-android-sdk" target="_blank" rel="noopener">https://github.com/matrix-org/matrix-android-sdk</a></p>
-<h3 id="3-服务端"><a href="#3-服务端" class="headerlink" title="3. 服务端"></a>3. 服务端</h3><p>服务端有以下几个重要组成：<br>主服务器：synapse<br>数据库：postgresql<br>第三方用户应用插件：mxisd<br>密码验证插件：auth_rest_provider</p>
-<p>源码包括相关文档可以通过github获取到<br>synapse：<a href="https://github.com/matrix-org/synapse" target="_blank" rel="noopener">https://github.com/matrix-org/synapse</a><br>mxisd：<a href="https://github.com/kamax-matrix/mxisd" target="_blank" rel="noopener">https://github.com/kamax-matrix/mxisd</a><br>auth_rest_provider：<a href="https://github.com/kamax-matrix/matrix-synapse-rest-auth" target="_blank" rel="noopener">https://github.com/kamax-matrix/matrix-synapse-rest-auth</a></p>
+<h3 id="1-github上有很多工程是这样做的。app工程是一个地址，将要依赖的library做成sdk-放在另一个git地址里。app工程会在build-gradle依赖的是sdk生成的aar"><a href="#1-github上有很多工程是这样做的。app工程是一个地址，将要依赖的library做成sdk-放在另一个git地址里。app工程会在build-gradle依赖的是sdk生成的aar" class="headerlink" title="1. github上有很多工程是这样做的。app工程是一个地址，将要依赖的library做成sdk,放在另一个git地址里。app工程会在build.gradle依赖的是sdk生成的aar."></a>1. github上有很多工程是这样做的。app工程是一个地址，将要依赖的library做成sdk,放在另一个git地址里。app工程会在build.gradle依赖的是sdk生成的aar.</h3><p>这样子导致我们debug程序会很困难。我举个例子：有个叫riot-android的app工程： <a href="https://github.com/vector-im/riot-android" target="_blank" rel="noopener">https://github.com/vector-im/riot-android</a>  在其工程目录vector下的build.gradle文件里依赖<br>implementation(name: ‘matrix-sdk’, ext: ‘aar’) 而这个 matrix-sdk.aar打包自另一个工程地址： <a href="https://github.com/matrix-org/matrix-android-sdk" target="_blank" rel="noopener">https://github.com/matrix-org/matrix-android-sdk</a><br>我的想法是：分别 git clone下这两套工程。 然后让 riot-android 依赖 matrix-sdk这个project. 不仅能够让两套代码编辑浏览，debug还能够github有更新时各自pull代码。如何实现？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 分别git clone 两套工程： riot-android 和 matrix-sdk</span><br><span class="line">2. android studio 打开 riot-android工程</span><br><span class="line">3. File -&gt; New -&gt; new module -&gt; import Gradle Project 弹出框 Source directory 选择 matrix-sdk 路径。一路finish。</span><br><span class="line">4. 接下来在 riot-android工程的 application所在的build.gradle(这里是vector) 注释掉 implementation(name: &apos;matrix-sdk&apos;, ext: &apos;aar&apos;)。 加上 implementation project(&apos;:matrix-sdk&apos;)</span><br><span class="line">编译即可。</span><br></pre></td></tr></table></figure>
+<p>当然还有另外的办法： <a href="https://www.cnblogs.com/didikee/p/7880504.html" target="_blank" rel="noopener">https://www.cnblogs.com/didikee/p/7880504.html</a></p>
 
       
     </div>
@@ -360,8 +359,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/03/docker/1.docker命令使用/" rel="next" title="一、docker命令使用">
-                <i class="fa fa-chevron-left"></i> 一、docker命令使用
+              <a href="/2019/03/14/im/webRTC/1.webRTC术语篇/" rel="next" title="一、webRTC术语篇">
+                <i class="fa fa-chevron-left"></i> 一、webRTC术语篇
               </a>
             
           </div>
@@ -369,10 +368,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/21/react-native/19.替换indext.android.bundle立即看到效果/" rel="prev" title="十九、替换indext.android.bundle立即看到效果">
-                十九、替换indext.android.bundle立即看到效果 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -449,7 +444,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -460,7 +455,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -504,7 +499,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-介绍"><span class="nav-number">1.</span> <span class="nav-text">1.介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-客户端"><span class="nav-number">2.</span> <span class="nav-text">2. 客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-服务端"><span class="nav-number">3.</span> <span class="nav-text">3. 服务端</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-github上有很多工程是这样做的。app工程是一个地址，将要依赖的library做成sdk-放在另一个git地址里。app工程会在build-gradle依赖的是sdk生成的aar"><span class="nav-number">1.</span> <span class="nav-text">1. github上有很多工程是这样做的。app工程是一个地址，将要依赖的library做成sdk,放在另一个git地址里。app工程会在build.gradle依赖的是sdk生成的aar.</span></a></li></ol></div>
             
 
           </div>

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.介绍负载均衡是高可用架构的一个关键组件，主要用来提高性能和可用性，通过负载均衡将流量分发到多个服务器，同时多服务器能够消除这部分的单点故障。当然负载均衡器本身就是一个单点故障隐患，可以考虑负载均衡双机热备或其他方案消除单点故障提高可用性。 一个没有使用负载均衡的web server如果挂了那么整个系统都无法使用，也就是我们常说的系统中的单点故障，同样如果大量的用户同时访问这一台服务器，那么这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一、matrix资源及介绍">
+<meta property="og:url" content="http://yoursite.com/2018/12/06/im/socketio/1. socketio负载均衡/index.html">
+<meta property="og:site_name" content="凡星的个人博客">
+<meta property="og:description" content="1.介绍负载均衡是高可用架构的一个关键组件，主要用来提高性能和可用性，通过负载均衡将流量分发到多个服务器，同时多服务器能够消除这部分的单点故障。当然负载均衡器本身就是一个单点故障隐患，可以考虑负载均衡双机热备或其他方案消除单点故障提高可用性。 一个没有使用负载均衡的web server如果挂了那么整个系统都无法使用，也就是我们常说的系统中的单点故障，同样如果大量的用户同时访问这一台服务器，那么这">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-20T02:09:22.458Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一、matrix资源及介绍">
+<meta name="twitter:description" content="1.介绍负载均衡是高可用架构的一个关键组件，主要用来提高性能和可用性，通过负载均衡将流量分发到多个服务器，同时多服务器能够消除这部分的单点故障。当然负载均衡器本身就是一个单点故障隐患，可以考虑负载均衡双机热备或其他方案消除单点故障提高可用性。 一个没有使用负载均衡的web server如果挂了那么整个系统都无法使用，也就是我们常说的系统中的单点故障，同样如果大量的用户同时访问这一台服务器，那么这">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/06/im/socketio/1. socketio负载均衡/"/>
+
+
+
+
+
+  <title>一、matrix资源及介绍 | 凡星的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">凡星的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/im/socketio/1. socketio负载均衡/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wwd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="凡星的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一、matrix资源及介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T15:45:13+08:00">
+                2018-12-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/im/" itemprop="url" rel="index">
+                    <span itemprop="name">im</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><br></p>
+<h3 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h3><p>负载均衡是高可用架构的一个关键组件，主要用来提高性能和可用性，通过负载均衡将流量分发到多个服务器，同时多服务器能够消除这部分的单点故障。<br>当然负载均衡器本身就是一个单点故障隐患，可以考虑负载均衡双机热备或其他方案消除单点故障提高可用性。</p>
+<p>一个没有使用负载均衡的web server如果挂了那么整个系统都无法使用，也就是我们常说的系统中的单点故障，同样如果大量的用户同时访问这一台服务器，<br>那么这些用户很可能会遇到加载时间缓慢或者根本无法连接的问题。</p>
+<p>这部分的单点故障可以通过引入负载均衡器和至少另一个Web Server来缓解。一般来说所有后端服务器会提供相同的内容，以便用户无论访问哪个服务器都会收到一致的内容。同时由于有多台服务器同时提供服务，也加大了系统的负载能力提高了性能。</p>
+<p><br></p>
+<h3 id="2-负载均衡算法"><a href="#2-负载均衡算法" class="headerlink" title="2.负载均衡算法"></a>2.负载均衡算法</h3><p>负载均衡算法用于确定流量应该被分发到哪一个健康的服务器上，常见的几个算法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A. Round Robin — 轮转（Round Robin）意味着服务器会被按顺序地选择，比如负载均衡器会将第一个请求分配给第一个服务器，然后下一个请求分配给第二个服务器，</span><br><span class="line">这样分配下去分配完一轮之后回到开头分配给第一个服务器（操作系统调度算法复习一下）。这种方式比较适合各服务器处理能力相同而且每个业务处理量差不多的时候。</span><br><span class="line"></span><br><span class="line">B. Least Connections — 最少连接（Least Connections）这个算法意味着负载均衡器会选择当前连接最少的服务器。</span><br><span class="line"></span><br><span class="line">C. IP hash — 在这个算法下，负载均衡器根据请求源的IP来决定分发给哪个服务器。这个方法保证了一个特定的用户会一直访问相同的服务器。</span><br></pre></td></tr></table></figure></p>
+<p>其他还有一些不算太常见的算法，比如Url hash、Random等。</p>
+<p><br></p>
+<h3 id="3-健康检测（health-checks）"><a href="#3-健康检测（health-checks）" class="headerlink" title="3.健康检测（health checks）"></a>3.健康检测（health checks）</h3><p>在第2点负载均衡算法中我们有一个前提，就是流量只会被分配到健康的服务器上，那么负载均衡器怎么去判断服务器现在是否健康呢？<br>为了监控健康的服务器，健康检查一般会通过配置的协议和端口尝试去连接服务器来保证服务器正在监听。如果一个服务器的健康检查失败了，也就是说服务器无法正常响应请求，那么就会被自动的移除池子中，流量也不会被分配到这个坏掉的服务器直到它能通过健康检查。</p>
+<p><br></p>
+<h3 id="4-负载均衡双机热备（Hot-standby）"><a href="#4-负载均衡双机热备（Hot-standby）" class="headerlink" title="4.负载均衡双机热备（Hot standby）"></a>4.负载均衡双机热备（Hot standby）</h3><p>正如开头所说，负载均衡器本身就是一个单点故障隐患，其中一个解决方案就是双机热备（提高可用性的一大基本方法就是冗余）。<br>双机热备方案为了解决负载均衡器的单点故障问题，引入了第二个负载均衡器，当主节点GG了之后切换到备用节点。</p>
+<p>由于每个socket.io服务器上限就是保持5000个连接数，考虑到大用户量的情况，需要用到一定数量的socket.io服务器，专门用来保持和用户的持久化连接</p>
+<p>模拟大量用户并发访问<br>单个用户访问建立TCP连接在上述是可行的，但是如果大量用户并发访问呢？目前用到 apache ab 工具来进行高并发访问实验。<br>命令如下<br>ab -n 10000 -c 100 -r 127.0.0.1:8080</p>
+<p>关于socket.io服务器集群:    <a href="https://www.jianshu.com/p/71ac2fd99457" target="_blank" rel="noopener">https://www.jianshu.com/p/71ac2fd99457</a></p>
+<p>android xmpp socketio<br>待运行：C:\wwd\workspace\socketio\chatdemo2<br>数据库集群<br>http https 负载均衡</p>
+<p>socket.io-redis</p>
+<p>由于nginx的反向代理机制和socket.io的自动重连机制，上述架构还具备高可用的特性，即当某个节点down机时，原先连接到该节点上的客户端会自动重连至其它节点上。</p>
+<p>节点的数量可以随时增减，不需要暂停服务，只需修改nginx配置即可。</p>
+<p>可以通过redis的订阅发布服务来实现其他系统同集群的通信，完成集群的管理工作</p>
+<p>由于是分布式环境，所以节点内存中存储的信息（如用户、房间信息）可以考虑持久化到redis或mongodb中。</p>
+<p>nginx的ip_hash是基于ip的前三段进行计算的，也就是说ip只有D段不同的两台客户端一定会连接到同一台服务器上，这点测试的时候需要注意。</p>
+<p>socket.io服务器集群</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/03/docker/1.docker命令使用/" rel="next" title="一、docker命令使用">
+                <i class="fa fa-chevron-left"></i> 一、docker命令使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/06/im/1. matrix资源及介绍/" rel="prev" title="一、matrix资源及介绍">
+                一、matrix资源及介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">wwd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-介绍"><span class="nav-number">1.</span> <span class="nav-text">1.介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-负载均衡算法"><span class="nav-number">2.</span> <span class="nav-text">2.负载均衡算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-健康检测（health-checks）"><span class="nav-number">3.</span> <span class="nav-text">3.健康检测（health checks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-负载均衡双机热备（Hot-standby）"><span class="nav-number">4.</span> <span class="nav-text">4.负载均衡双机热备（Hot standby）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wwd</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="凡星的个人博客">
 <meta property="og:description" content="如何让文本右对齐？我知道的有两种办法：12一种是设置父控件，让文本控件右对齐第二种是让文本控件填充满剩余空间，然后让文本控件的内容靠右   第二种办法比第一种更灵活。因为父控件设置子控件对齐方式往往没办法更改了，更改会影响其他子控件显示。我举个例子：12345678910&amp;lt;TouchableOpacity style=&amp;#123;&amp;#123;flex:1, flexDirection:&amp;a">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-27T07:51:05.273Z">
+<meta property="og:updated_time" content="2019-03-14T06:45:21.656Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="十一、Text记录">
 <meta name="twitter:description" content="如何让文本右对齐？我知道的有两种办法：12一种是设置父控件，让文本控件右对齐第二种是让文本控件填充满剩余空间，然后让文本控件的内容靠右   第二种办法比第一种更灵活。因为父控件设置子控件对齐方式往往没办法更改了，更改会影响其他子控件显示。我举个例子：12345678910&amp;lt;TouchableOpacity style=&amp;#123;&amp;#123;flex:1, flexDirection:&amp;a">
@@ -336,6 +336,11 @@
 </li>
 </ol>
 <p>第二种办法比第一种更灵活。因为父控件设置子控件对齐方式往往没办法更改了，更改会影响其他子控件显示。我举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;TouchableOpacity style=&#123;&#123;flex:1, flexDirection:&apos;row&apos;, width: &apos;100%&apos;, height: &apos;10%&apos;, alignItems:&apos;center&apos;, justifyContent: &apos;space-between&apos;&#125;&#125;&gt;</span><br><span class="line">	&lt;Text&gt;软件升级&lt;/Text&gt;</span><br><span class="line">	&lt;Text&gt;版本号: 2.7.3&lt;/Text&gt;</span><br><span class="line">	&lt;Image source=&#123;require(&apos;../res/ic_version.png&apos;)&#125;&gt;</span><br><span class="line">&lt;/TouchableOpacity&gt;</span><br><span class="line">父控件指定了主轴对齐方式是： space-between， 这个没办法改。我想要让版本号的Text怎么靠右，靠近Image显示呢？</span><br><span class="line"></span><br><span class="line">&lt;Text style=&#123;&#123;flex:1, textAlign:&apos;right&apos;&#125;&#125;&gt;版本号: 2.7.3&lt;/Text&gt;</span><br><span class="line">首先我让版本号的Text控件填充满剩余空间： flex:1</span><br><span class="line">然后我让Text控件里面的内容居右显示即达到了效果</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>Text控件可以嵌套使用。有如下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;View style=&#123;&#123;flexDirection:&apos;row&apos;, marginTop:5&#125;&#125;&gt;</span><br><span class="line">	&lt;Text style=&#123;&#123;color:&apos;#000&apos;, fontSize:14&#125;&#125;&gt;发起时间：&lt;/Text&gt;</span><br><span class="line">	&lt;Text style=&#123;&#123;color:&apos;#000&apos;, fontSize:14&#125;&#125;&gt;&#123;startTime&#125;&lt;/Text&gt;</span><br><span class="line">&lt;/View&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>可以看到。两个Text是水平显示的。 可以使用更优雅布局方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Text style=&#123;&#123;color:&apos;#000&apos;, fontSize:14, marginTop:5&#125;&#125;&gt;</span><br><span class="line">	发起时间：</span><br><span class="line">	&lt;Text&gt;&#123;startTime&#125;&lt;/Text&gt;</span><br><span class="line">&lt;/Text&gt;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -440,7 +445,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -451,7 +456,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

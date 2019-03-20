@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="集成了react-navigation后，会发现界面背景色变化了。参考官网说明：1If you run this code, you will see a screen with an empty navigation bar and a grey content area containing your HomeScreen component.   也就是说react-navigation会">
+<meta name="description" content="1. 集成了react-navigation后，会发现界面背景色变化了。参考官网说明：1If you run this code, you will see a screen with an empty navigation bar and a grey content area containing your HomeScreen component. 也就是说react-navigation">
 <meta property="og:type" content="article">
 <meta property="og:title" content="六、react-navigation记录">
 <meta property="og:url" content="http://yoursite.com/2018/08/20/react-native/6.react-navigation记录/index.html">
 <meta property="og:site_name" content="凡星的个人博客">
-<meta property="og:description" content="集成了react-navigation后，会发现界面背景色变化了。参考官网说明：1If you run this code, you will see a screen with an empty navigation bar and a grey content area containing your HomeScreen component.   也就是说react-navigation会">
+<meta property="og:description" content="1. 集成了react-navigation后，会发现界面背景色变化了。参考官网说明：1If you run this code, you will see a screen with an empty navigation bar and a grey content area containing your HomeScreen component. 也就是说react-navigation">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-21T02:09:29.767Z">
+<meta property="og:updated_time" content="2019-03-15T06:39:17.451Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="六、react-navigation记录">
-<meta name="twitter:description" content="集成了react-navigation后，会发现界面背景色变化了。参考官网说明：1If you run this code, you will see a screen with an empty navigation bar and a grey content area containing your HomeScreen component.   也就是说react-navigation会">
+<meta name="twitter:description" content="1. 集成了react-navigation后，会发现界面背景色变化了。参考官网说明：1If you run this code, you will see a screen with an empty navigation bar and a grey content area containing your HomeScreen component. 也就是说react-navigation">
 
 
 
@@ -331,11 +331,24 @@
       
 
       
-        <ol>
-<li>集成了react-navigation后，会发现界面背景色变化了。参考官网说明：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If you run this code, you will see a screen with an empty navigation bar and a grey content area containing your HomeScreen component.</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+        <p><br></p>
+<h3 id="1-集成了react-navigation后，会发现界面背景色变化了。参考官网说明："><a href="#1-集成了react-navigation后，会发现界面背景色变化了。参考官网说明：" class="headerlink" title="1. 集成了react-navigation后，会发现界面背景色变化了。参考官网说明："></a>1. 集成了react-navigation后，会发现界面背景色变化了。参考官网说明：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If you run this code, you will see a screen with an empty navigation bar and a grey content area containing your HomeScreen component.</span><br></pre></td></tr></table></figure>
 <p>也就是说react-navigation会给界面添加默认的grey背景色，会导致列表界面有间隔线的会非常不明显。还有TextInput的hint也不明显。要取消该style应如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">const AppRoutes = createStackNavigator(&#123;</span><br><span class="line">    PublicFeelingsDetailPage: &#123; screen: PublicFeelingsDetailPage &#125;,</span><br><span class="line">    Wifi: &#123; screen: Wifi &#125;,</span><br><span class="line"></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    headerMode: &apos;none&apos;,//隐藏导航栏,也就是android的ToolBar</span><br><span class="line">    initialRouteName: &apos;PublicFeelingsDetailPage&apos;,</span><br><span class="line">    cardStyle: &#123;</span><br><span class="line">        backgroundColor: &apos;transparent&apos;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">export default class Root extends Component&#123;</span><br><span class="line"></span><br><span class="line">    render()&#123;</span><br><span class="line">        return &lt;AppRoutes /&gt;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">关键代码：</span><br><span class="line">cardStyle: &#123;</span><br><span class="line">    backgroundColor: &apos;transparent&apos;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<h3 id="2-react-navigation-配置了多个页面后，会用-initialRouteName-来声明哪个页面是-first-page或初始页面。那我碰到问题是如何给这个初始页面传递参数呢？"><a href="#2-react-navigation-配置了多个页面后，会用-initialRouteName-来声明哪个页面是-first-page或初始页面。那我碰到问题是如何给这个初始页面传递参数呢？" class="headerlink" title="2.  react-navigation 配置了多个页面后，会用 initialRouteName 来声明哪个页面是 first page或初始页面。那我碰到问题是如何给这个初始页面传递参数呢？"></a>2.  react-navigation 配置了多个页面后，会用 initialRouteName 来声明哪个页面是 first page或初始页面。那我碰到问题是如何给这个初始页面传递参数呢？</h3><p>我们都知道，尽管有了react native, 但是android app 不可能做到用纯 react native来开发。这种场景下一个android app由android原生，react native 这2个系统组成。<br>其中 react natvie开发的页面关系由 react navigation管理。两个系统总要交互吧？ 由android页面跳转到 react native页面，并且android原生要传递参数过去，react navigation的默认首页面该如何获取到由android传递过来的参数值呢？ 上代码：</p>
+<p>MyRouter.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &apos;react&apos;</span><br><span class="line">import TaskDetailPage from &apos;./TaskDetailPage&apos;;</span><br><span class="line">import TaskFeedbackPage from &apos;./TaskFeedbackPage&apos;;</span><br><span class="line">import &#123;createStackNavigator&#125; from &apos;react-navigation&apos;;</span><br><span class="line">import StackViewStyleInterpolator from &apos;react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator&apos;</span><br><span class="line"></span><br><span class="line">export default class MyRouter extends Component &#123;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line"></span><br><span class="line">        const AppRoutes = createStackNavigator(&#123;</span><br><span class="line"></span><br><span class="line">            TaskDetailPage: &#123; screen: TaskDetailPage &#125;,</span><br><span class="line">            TaskFeedbackPage: &#123; screen: TaskFeedbackPage &#125;</span><br><span class="line"> </span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            headerMode: &apos;none&apos;,//隐藏导航栏,也就是android的ToolBar</span><br><span class="line">            initialRouteName: &apos;TaskDetailPage&apos;,</span><br><span class="line">            initialRouteParams: &#123;...this.props, navTitle: &apos;任务详情&apos;, androidNativeFinish: true&#125;,</span><br><span class="line">            transitionConfig: ()=&gt;(&#123;</span><br><span class="line">                screenInterpolator:StackViewStyleInterpolator.forHorizontal</span><br><span class="line">            &#125;),</span><br><span class="line">            cardStyle: &#123;</span><br><span class="line">                backgroundColor: &apos;transparent&apos;,</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;);</span><br><span class="line">        return &lt;AppRoutes /&gt;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>只要将 createStackNavigator 代码块丢到 render方法中定义， 就可以在 initialRouteParams 里使用 this.props，从而 默认首页 TaskDetailPage就可以获取到值了。</p>
+<p><br></p>
+<h3 id="3-我们聊一聊单入口实现方式。-用rn-做了2个功能模块："><a href="#3-我们聊一聊单入口实现方式。-用rn-做了2个功能模块：" class="headerlink" title="3. 我们聊一聊单入口实现方式。 用rn 做了2个功能模块："></a>3. 我们聊一聊单入口实现方式。 用rn 做了2个功能模块：</h3><p>task(任务管理)模块有3个页面：    TaskListPage, TaskCreatePage, TaskDetailPage .    TaskListPage是列表页面， TaskCreatePage是新增任务页面， TaskDetailPage是任务详情页面。<br>meeting(会议管理)模块也有如上3个页面： MeetingListPage, MeetingCreatePage, MeetingDetailPage。<br>task模块和 meeting模块 都是由原生端点击进入的。那么我们会建立2个 react navigation来管理各自模块。<br>TaskRouter.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">const AppRoutes = createStackNavigator(&#123;</span><br><span class="line"></span><br><span class="line">    TaskListPage: &#123; screen: TaskListPage &#125;,</span><br><span class="line">    TaskCreatePage: &#123; screen: TaskCreatePage &#125;,</span><br><span class="line">    TaskDetailPage: &#123; screen: TaskDetailPage &#125;</span><br><span class="line"></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    headerMode: &apos;none&apos;,//隐藏导航栏,也就是android的ToolBar</span><br><span class="line">    initialRouteName: &apos;TaskListPage&apos;,</span><br><span class="line">    transitionConfig: ()=&gt;(&#123;</span><br><span class="line">        screenInterpolator:StackViewStyleInterpolator.forHorizontal</span><br><span class="line">    &#125;),</span><br><span class="line">    cardStyle: &#123;</span><br><span class="line">        backgroundColor: &apos;transparent&apos;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">export default class TaskRouter extends Component &#123;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        return &lt;AppRoutes /&gt;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>MeetingRouter.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const AppRoutes = createStackNavigator(&#123;</span><br><span class="line"></span><br><span class="line">    MeetingListPage: &#123; screen: MeetingListPage &#125;,</span><br><span class="line">    MeetingCreatePage: &#123; screen: MeetingCreatePage &#125;,</span><br><span class="line">    MeetingDetailPage: &#123; screen: MeetingDetailPage &#125;</span><br><span class="line"></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    headerMode: &apos;none&apos;,//隐藏导航栏,也就是android的ToolBar</span><br><span class="line">    initialRouteName: &apos;MeetingListPage&apos;,</span><br><span class="line">    transitionConfig: ()=&gt;(&#123;</span><br><span class="line">        screenInterpolator:StackViewStyleInterpolator.forHorizontal</span><br><span class="line">    &#125;),</span><br><span class="line">    cardStyle: &#123;</span><br><span class="line">        backgroundColor: &apos;transparent&apos;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">export default class MeetingRouter extends Component &#123;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        return &lt;AppRoutes /&gt;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>TaskRouter 和 MeetingRouter 各自托管了自身的页面。他们是入口。android原生只要跳转到 TaskRouter 或 MeetingRouter页面即可。<br>那是否需要在android端还得要建立两个Activity分别对应 TaskRouter 和 MeetingRouter呢？显然不应该这样用。否则rn每建立个入口。android原生端都要新建对应类，又要编译apk,就违背了rn初衷了嘛。<br>我们建立一个叫 PageActivity的类，负责进入所有的rn入口端：</p>
+<p>PageActivity.kt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import android.os.Bundle</span><br><span class="line">import com.facebook.react.ReactActivityDelegate</span><br><span class="line">class PageActivity : ReactActivity() &#123;</span><br><span class="line"></span><br><span class="line">    override fun getMainComponentName(): String? &#123;</span><br><span class="line">        return &quot;PageActivity&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun createReactActivityDelegate(): ReactActivityDelegate &#123;</span><br><span class="line"></span><br><span class="line">        return object : ReactActivityDelegate(this, mainComponentName) &#123;</span><br><span class="line">            override fun getLaunchOptions(): Bundle? &#123;</span><br><span class="line">                return intent.extras</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>getLaunchOptions允许 intent可以带参数。再看看rn端</p>
+<p>index.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import &#123; AppRegistry &#125; from &apos;react-native&apos;;</span><br><span class="line">import PageEntry from &apos;./js/page/PageEntry&apos;;</span><br><span class="line">AppRegistry.registerComponent(&apos;PageActivity&apos;, () =&gt; PageEntry);</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，android原生端跳转到 PageActivity类实际上是进入到 PageEntry页面。 </p>
+<p>PageEntry.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &apos;react&apos;;</span><br><span class="line">import CaseRouter from &apos;./case/CaseRouter&apos;;</span><br><span class="line">import CaseCoworkRouter from &apos;./casecowork/CaseCoworkRouter&apos;;</span><br><span class="line">import PoliceRouter from &apos;./police/PoliceRouter&apos;;</span><br><span class="line">import TaskRouter from &apos;./task/TaskRouter&apos;;</span><br><span class="line">import SimpleTaskRouter from &apos;./simpletask/SimpleTaskRouter&apos;;</span><br><span class="line">import KeyPersonRouter from &apos;./keyperson/KeyPersonRouter&apos;;</span><br><span class="line">import MyTodoRouter from &apos;./mytodo/MyTodoRouter&apos;;</span><br><span class="line">import SimpleTaskDetailPage from &apos;./simpletask/SimpleTaskDetailPage&apos;;</span><br><span class="line">import SimpleTaskDetailRouter from &apos;./simpletask/SimpleTaskDetailRouter&apos;;</span><br><span class="line"></span><br><span class="line">export default class PageEntry extends Component &#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        if (!this.props.name) return null;</span><br><span class="line">        switch (this.props.name) &#123;</span><br><span class="line">            case &apos;Task&apos;://指挥管理</span><br><span class="line">                return &lt;TaskRouter /&gt;;</span><br><span class="line">            case &apos;Meeting&apos;://任务管理(柳州的内部管理app，简化版的指挥管理)    </span><br><span class="line">                return &lt;MeetingRouter /&gt;         </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看到了木有？ 只要原生跳转到 PageActivity 时带 Task 就可以展示 TaskRouter，带 Meeting参数 就可以 展示 MeetingRouter。<br>原生端跳转代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val intent = Intent(context, PageActivity::class.java).apply &#123; </span><br><span class="line">	putExtra(“name”, &quot;Task&quot;)</span><br><span class="line">&#125;</span><br><span class="line">startActivity(this, intent)</span><br></pre></td></tr></table></figure></p>
+<p>注意：intent传入参数的key为啥是 name ? PageEntry.js里看到了 this.props.name 木有？</p>
 
       
     </div>
@@ -360,8 +373,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/13/react-native/4.onPress调用函数两种写法/" rel="next" title="四、RN中onPress调用函数的两种写法踩坑">
-                <i class="fa fa-chevron-left"></i> 四、RN中onPress调用函数的两种写法踩坑
+              <a href="/2018/08/13/react-native/5.资源汇总/" rel="next" title="五、RN资源收集">
+                <i class="fa fa-chevron-left"></i> 五、RN资源收集
               </a>
             
           </div>
@@ -424,8 +437,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -440,7 +462,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -451,7 +473,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -485,6 +507,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-集成了react-navigation后，会发现界面背景色变化了。参考官网说明："><span class="nav-number">1.</span> <span class="nav-text">1. 集成了react-navigation后，会发现界面背景色变化了。参考官网说明：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-react-navigation-配置了多个页面后，会用-initialRouteName-来声明哪个页面是-first-page或初始页面。那我碰到问题是如何给这个初始页面传递参数呢？"><span class="nav-number">2.</span> <span class="nav-text">2.  react-navigation 配置了多个页面后，会用 initialRouteName 来声明哪个页面是 first page或初始页面。那我碰到问题是如何给这个初始页面传递参数呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-我们聊一聊单入口实现方式。-用rn-做了2个功能模块："><span class="nav-number">3.</span> <span class="nav-text">3. 我们聊一聊单入口实现方式。 用rn 做了2个功能模块：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
